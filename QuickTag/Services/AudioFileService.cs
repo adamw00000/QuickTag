@@ -12,8 +12,9 @@ namespace QuickTag.Services
         public Track LoadAudioTags(string filePath)
         {
             var file = TagLib.File.Create(filePath);
+            var tag = file.Tag;
 
-            return new Track(file.Tag.Title, file.Tag.FirstPerformer);
+            return new Track(tag.Title, tag.FirstPerformer, tag.Pictures[0]?.Data.Data);
         }
     }
 }
