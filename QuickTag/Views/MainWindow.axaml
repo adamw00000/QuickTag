@@ -27,7 +27,16 @@
 			</ExperimentalAcrylicBorder.Material>
 		</ExperimentalAcrylicBorder>
 		<Panel Margin="40">
-			<TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+			<DataGrid Items="{Binding Tracks}" CanUserResizeColumns="True">
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="Title"
+										Binding="{Binding Title}"
+										Width="*"></DataGridTextColumn>
+					<DataGridTextColumn Header="Artist"
+										Binding="{Binding Artist}"
+										Width="*"></DataGridTextColumn>
+				</DataGrid.Columns>
+			</DataGrid>
 		</Panel>
 	</Panel>
 </Window>
