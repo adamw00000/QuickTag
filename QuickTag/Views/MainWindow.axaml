@@ -7,26 +7,14 @@
         x:Class="QuickTag.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="Quick Tag"
-        TransparencyLevelHint="AcrylicBlur"
-        Background="Transparent"
-		ExtendClientAreaToDecorationsHint="True"
 		WindowStartupLocation="CenterScreen">
 
-    <Design.DataContext>
-        <vm:MainWindowViewModel/>
-    </Design.DataContext>
+	<Design.DataContext>
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
 
 	<Panel>
-		<ExperimentalAcrylicBorder IsHitTestVisible="False">
-			<ExperimentalAcrylicBorder.Material>
-				<ExperimentalAcrylicMaterial
-					BackgroundSource="Digger"
-					TintColor="Black"
-					TintOpacity="1"
-					MaterialOpacity="0.65" />
-			</ExperimentalAcrylicBorder.Material>
-		</ExperimentalAcrylicBorder>
-		<Panel Margin="0,30,0,0">
+		<Panel Margin="0,0,0,0">
 			<DataGrid Items="{Binding Tracks}" CanUserResizeColumns="True">
 				<DataGrid.Columns>
 					<DataGridTemplateColumn Header="Cover"
