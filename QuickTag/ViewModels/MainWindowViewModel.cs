@@ -41,7 +41,7 @@ namespace QuickTag.ViewModels
         {
             Tracks.Clear();
             TracksLoaded = 0;
-            NumTracks = await _trackService.CountTracks(ROOTDIR);
+            NumTracks = await Observable.Start(() => _trackService.CountTracks(ROOTDIR), RxApp.TaskpoolScheduler);
 
             IsLoading = true;
 
