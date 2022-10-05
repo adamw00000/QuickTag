@@ -8,7 +8,7 @@ namespace QuickTag.ViewModels
     public class TrackListItemViewModel: ViewModelBase
     {
         private readonly Track _track;
-        private Bitmap _cover;
+        private Bitmap? _cover;
 
         public TrackListItemViewModel(Track track)
         {
@@ -18,14 +18,22 @@ namespace QuickTag.ViewModels
         public string Title { get => _track.Title; set => _track.Title = value; }
         public string Artist { get => _track.Artist; set => _track.Artist = value; }
 
-        public Bitmap Cover
+        public Bitmap? Cover
         {
             get => _cover;
             set
             {
                 this.RaiseAndSetIfChanged(ref _cover, value);
-                using var stream = new MemoryStream(_track.Cover);
+
+                if (value == null)
+                {
+                    _track.Cover = null;
+                    return;
+                }
+
+                using var stream = new MemoryStream();
                 value.Save(stream);
+                _track.Cover = stream.ToArray();
             }
         }
 

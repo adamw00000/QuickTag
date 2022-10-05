@@ -2,7 +2,7 @@
 {
     public class Track
     {
-        public Track(string title, string artist, byte[] cover)
+        public Track(string title, string artist, byte[]? cover)
         {
             Title = title;
             Artist = artist;
@@ -11,6 +11,6 @@
 
         public string Title { get; set; }
         public string Artist { get; set; }
-        public byte[] Cover { get; set; }
+        public byte[]? Cover { get; set; }
     }
 }
