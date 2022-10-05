@@ -1,6 +1,5 @@
 ﻿using QuickTag.Services;
 using QuickTag.ViewModels;
-using QuickTag.ViewModels.Factories;
 using Splat;
 using System;
 using System.Collections.Generic;
@@ -26,10 +25,8 @@ namespace QuickTag
 
         private static void BootstrapViewModels()
         {
-            SplatRegistrations.Register<IMainWindowViewModel, MainWindowViewModel>();
-
-            SplatRegistrations.Register<ITrackViewModel, TrackViewModel>();
-            SplatRegistrations.Register<ITrackViewModelFactory, TrackViewModelFactory>();
+            SplatRegistrations.Register<MainWindowViewModel>();
+            SplatRegistrations.Register<TrackViewModel>();
         }
     }
 }

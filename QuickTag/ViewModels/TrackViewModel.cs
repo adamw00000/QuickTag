@@ -11,16 +11,7 @@ using System.Threading.Tasks;
 
 namespace QuickTag.ViewModels
 {
-    public interface ITrackViewModel
-    {
-        string Title { get; set; }
-        string Artist { get; set; }
-        Bitmap Cover { get; set; }
-
-        void LoadCover(int displaySize);
-    }
-
-    public class TrackViewModel: ViewModelBase, ITrackViewModel
+    public class TrackViewModel: ViewModelBase
     {
         private readonly Track _track;
         private Bitmap _cover;

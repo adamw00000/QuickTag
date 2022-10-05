@@ -1,6 +1,5 @@
 ﻿using QuickTag.Models;
 using QuickTag.Services;
-using QuickTag.ViewModels.Factories;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
@@ -14,20 +13,10 @@ using System.Threading.Tasks;
 
 namespace QuickTag.ViewModels
 {
-    public interface IMainWindowViewModel
-    {
-        int CoverMiniatureSize { get; }
-        int TracksLoaded { get; }
-        int NumTracks { get; }
-        string TrackLoadingMessage { get; }
-        bool IsLoading { get; }
-    }
-
-    public class MainWindowViewModel : ViewModelBase, IMainWindowViewModel
+    public class MainWindowViewModel : ViewModelBase
     {
         private const string ROOTDIR = "G:\\z telefonu";
         private readonly ITrackService _trackService;
-        private readonly ITrackViewModelFactory _trackViewModelFactory;
 
         public int CoverMiniatureSize { get; } = 30;
         [Reactive]
@@ -39,12 +28,11 @@ namespace QuickTag.ViewModels
         [Reactive]
         public bool IsLoading { get; private set; } = false;
 
-        public ObservableCollection<ITrackViewModel> Tracks { get; } = new();
+        public ObservableCollection<TrackViewModel> Tracks { get; } = new();
 
-        public MainWindowViewModel(ITrackService trackService, ITrackViewModelFactory trackViewModelFactory)
+        public MainWindowViewModel(ITrackService trackService)
         {
             _trackService = trackService;
-            _trackViewModelFactory = trackViewModelFactory;
 
             this.WhenAnyValue(x => x.TracksLoaded, x => x.NumTracks, (i, total) => i < total ? $"Loading tracks: {i}/{total}" : "Loading finished!")
                 .ToPropertyEx(this, x => x.TrackLoadingMessage);
@@ -62,7 +50,7 @@ namespace QuickTag.ViewModels
 
             foreach (var track in await Observable.Start(() => _trackService.LoadTracks(ROOTDIR), RxApp.TaskpoolScheduler))
             {
-                var trackVm = _trackViewModelFactory.Create(track);
+                var trackVm = new TrackViewModel(track);
                 Tracks.Add(trackVm);
                 await Observable.Start(() => trackVm.LoadCover(CoverMiniatureSize));
 

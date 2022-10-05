@@ -20,7 +20,7 @@ namespace QuickTag
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = GetRequiredService<IMainWindowViewModel>(),
+                    DataContext = GetRequiredService<MainWindowViewModel>(),
                 };
             }
 
