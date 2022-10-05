@@ -3,6 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using QuickTag.ViewModels;
 using QuickTag.Views;
+using Splat;
 
 namespace QuickTag
 {
@@ -19,11 +20,13 @@ namespace QuickTag
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(),
+                    DataContext = GetRequiredService<IMainWindowViewModel>(),
                 };
             }
 
             base.OnFrameworkInitializationCompleted();
         }
+
+        private static T GetRequiredService<T>() => Locator.Current.GetRequiredService<T>();
     }
 }

@@ -6,7 +6,13 @@ using System.Linq;
 
 namespace QuickTag.Services
 {
-    public class TrackService
+    public interface ITrackService
+    {
+        int CountTracks(string directory);
+        IEnumerable<Track> LoadTracks(string directory);
+    }
+
+    public class TrackService: ITrackService
     {
         private readonly AudioFileService _audioFileService = new();
         private readonly List<string> _audioExtensions = new() { ".mp3", ".flac", ".m4a", ".opus", ".wav" };

@@ -1,5 +1,6 @@
 ﻿using QuickTag.Models;
 using QuickTag.Services;
+using QuickTag.ViewModels.Factories;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
@@ -13,28 +14,42 @@ using System.Threading.Tasks;
 
 namespace QuickTag.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public interface IMainWindowViewModel
+    {
+        int CoverMiniatureSize { get; }
+        int TracksLoaded { get; }
+        int NumTracks { get; }
+        string TrackLoadingMessage { get; }
+        bool IsLoading { get; }
+    }
+
+    public class MainWindowViewModel : ViewModelBase, IMainWindowViewModel
     {
         private const string ROOTDIR = "G:\\z telefonu";
-        private readonly TrackService _trackService = new();
+        private readonly ITrackService _trackService;
+        private readonly ITrackViewModelFactory _trackViewModelFactory;
 
-        public int CoverMiniatureSize { get; set; } = 30;
+        public int CoverMiniatureSize { get; } = 30;
         [Reactive]
-        public int TracksLoaded { get; set; }
+        public int TracksLoaded { get; private set; }
         [Reactive]
-        public int NumTracks { get; set; }
+        public int NumTracks { get; private set; }
         [ObservableAsProperty]
-        public string TrackLoadingMessage { get; }
+        public string TrackLoadingMessage { get; } = string.Empty;
         [Reactive]
-        public bool IsLoading { get; set; } = false;
+        public bool IsLoading { get; private set; } = false;
 
-        public ObservableCollection<TrackViewModel> Tracks { get; } = new();
+        public ObservableCollection<ITrackViewModel> Tracks { get; } = new();
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(ITrackService trackService, ITrackViewModelFactory trackViewModelFactory)
         {
-            RxApp.MainThreadScheduler.Schedule(LoadTracks);
+            _trackService = trackService;
+            _trackViewModelFactory = trackViewModelFactory;
+
             this.WhenAnyValue(x => x.TracksLoaded, x => x.NumTracks, (i, total) => i < total ? $"Loading tracks: {i}/{total}" : "Loading finished!")
                 .ToPropertyEx(this, x => x.TrackLoadingMessage);
+
+            RxApp.MainThreadScheduler.Schedule(LoadTracks);
         }
 
         private async void LoadTracks()
@@ -47,17 +62,14 @@ namespace QuickTag.ViewModels
 
             foreach (var track in await Observable.Start(() => _trackService.LoadTracks(ROOTDIR), RxApp.TaskpoolScheduler))
             {
-                var trackVm = new TrackViewModel(track);
+                var trackVm = _trackViewModelFactory.Create(track);
                 Tracks.Add(trackVm);
                 await Observable.Start(() => trackVm.LoadCover(CoverMiniatureSize));
 
                 TracksLoaded++;
             }
 
-            RxApp.MainThreadScheduler.Schedule(new TimeSpan(0, 0, 5), () =>
-            {
-                IsLoading = false;
-            });
+            RxApp.MainThreadScheduler.Schedule(TimeSpan.FromSeconds(3), () => IsLoading = false);
         }
     }
 }
