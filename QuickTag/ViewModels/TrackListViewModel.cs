@@ -1,15 +1,10 @@
-﻿using QuickTag.Models;
-using QuickTag.Services;
+﻿using QuickTag.Services;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Reactive;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QuickTag.ViewModels
 {
@@ -19,6 +14,7 @@ namespace QuickTag.ViewModels
         private readonly ITrackService _trackService;
 
         public int CoverMiniatureSize { get; } = 30;
+
         [Reactive]
         public int TracksLoaded { get; private set; }
         [Reactive]

@@ -1,13 +1,7 @@
 ﻿using Avalonia.Media.Imaging;
 using QuickTag.Models;
 using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QuickTag.ViewModels
 {
@@ -23,6 +17,7 @@ namespace QuickTag.ViewModels
 
         public string Title { get => _track.Title; set => _track.Title = value; }
         public string Artist { get => _track.Artist; set => _track.Artist = value; }
+
         public Bitmap Cover
         {
             get => _cover;

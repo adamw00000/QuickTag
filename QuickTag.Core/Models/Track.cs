@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace QuickTag.Models
+﻿namespace QuickTag.Models
 {
     public class Track
     {
@@ -20,5 +13,4 @@ namespace QuickTag.Models
         public string Artist { get; set; }
         public byte[] Cover { get; set; }
     }
-
 }

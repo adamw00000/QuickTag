@@ -5,7 +5,7 @@ using System;
 
 namespace QuickTag
 {
-    public class ViewLocator : IDataTemplate
+    public class ViewLocator: IDataTemplate
     {
         public IControl Build(object data)
         {
