@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace QuickTag.ViewModels
 {
-    public class TrackViewModel: ViewModelBase
+    public class TrackListItemViewModel: ViewModelBase
     {
         private readonly Track _track;
         private Bitmap _cover;
 
-        public TrackViewModel(Track track)
+        public TrackListItemViewModel(Track track)
         {
             _track = track;
         }

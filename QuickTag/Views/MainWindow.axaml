@@ -13,42 +13,5 @@
 		<vm:MainWindowViewModel/>
 	</Design.DataContext>
 
-	<Panel>
-		<Panel Margin="0,0,0,0">
-			<DataGrid Items="{Binding Tracks}" CanUserResizeColumns="True">
-				<DataGrid.Columns>
-					<DataGridTemplateColumn Header="Cover"
-					                        Width="30">
-						<DataGridTemplateColumn.CellTemplate>
-							<DataTemplate>
-								<Border CornerRadius="5" ClipToBounds="True" Margin="1">
-									<Panel>
-										<Image Width="30" Stretch="Uniform" Source="{Binding Cover}" />
-										<Panel Height="30" Background="#7FFF22DD" IsVisible="{Binding Cover, Converter={x:Static ObjectConverters.IsNull}}">
-											<PathIcon Height="15" Width="15" Data="{StaticResource MusicRegular}" />
-										</Panel>
-									</Panel>
-								</Border>
-							</DataTemplate>
-						</DataGridTemplateColumn.CellTemplate>
-					</DataGridTemplateColumn>
-					<DataGridTextColumn Header="Title"
-										Binding="{Binding Title}"
-										Width="*"></DataGridTextColumn>
-					<DataGridTextColumn Header="Artist"
-										Binding="{Binding Artist}"
-										Width="*"></DataGridTextColumn>
-				</DataGrid.Columns>
-			</DataGrid>
-			<Grid VerticalAlignment="Bottom" HorizontalAlignment="Right" IsVisible="{Binding IsLoading}">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto"></ColumnDefinition>
-					<ColumnDefinition Width="100"></ColumnDefinition>
-				</Grid.ColumnDefinitions>
-				<TextBlock VerticalAlignment="Center" Text="{Binding TrackLoadingMessage}" Margin="0,0,5,0" FontSize="10"></TextBlock>
-				<ProgressBar Grid.Column="1" VerticalAlignment="Center" Height="10" MinWidth="100"
-							 Minimum="0" Maximum="{Binding NumTracks}" Value="{Binding TracksLoaded}"></ProgressBar>
-			</Grid>
-		</Panel>
-	</Panel>
+	<ContentControl Content="{Binding TrackList}"></ContentControl>
 </Window>

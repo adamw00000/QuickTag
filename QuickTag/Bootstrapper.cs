@@ -18,6 +18,7 @@ namespace QuickTag
 
             SplatRegistrations.SetupIOC();
         }
+
         private static void BootstrapServices()
         {
             SplatRegistrations.Register<ITrackService, TrackService>();
@@ -26,7 +27,8 @@ namespace QuickTag
         private static void BootstrapViewModels()
         {
             SplatRegistrations.Register<MainWindowViewModel>();
-            SplatRegistrations.Register<TrackViewModel>();
+            SplatRegistrations.Register<TrackListViewModel>();
+            SplatRegistrations.Register<TrackListItemViewModel>();
         }
     }
 }
