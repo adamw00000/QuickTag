@@ -12,7 +12,6 @@ namespace QuickTag.ViewModels
         private Track _track;
         private Bitmap? _cover;
 
-        public const int CoverMiniatureSize = 30;
 
         public TrackListItemViewModel(Track track)
         {
@@ -27,7 +26,7 @@ namespace QuickTag.ViewModels
                 if (result != null)
                 {
                     _track = result;
-                    await Observable.Start(() => LoadCover(CoverMiniatureSize));
+                    await Observable.Start(() => LoadCover(Constants.CoverListMiniatureSize));
                 }
             });
         }

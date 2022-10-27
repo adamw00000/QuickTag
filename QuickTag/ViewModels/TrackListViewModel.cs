@@ -13,8 +13,6 @@ namespace QuickTag.ViewModels
         private const string ROOTDIR = "G:\\_Sync\\Music";
         private readonly ITrackService _trackService;
 
-        public int CoverMiniatureSize { get; } = 30;
-
         [Reactive]
         public int TracksLoaded { get; private set; }
         [Reactive]
@@ -48,7 +46,7 @@ namespace QuickTag.ViewModels
             {
                 var trackVm = new TrackListItemViewModel(track);
                 Tracks.Add(trackVm);
-                await Observable.Start(() => trackVm.LoadCover(CoverMiniatureSize));
+                await Observable.Start(() => trackVm.LoadCover(Constants.CoverListMiniatureSize));
 
                 TracksLoaded++;
             }
