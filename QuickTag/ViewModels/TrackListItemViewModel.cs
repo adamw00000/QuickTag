@@ -12,7 +12,6 @@ namespace QuickTag.ViewModels
         private Track _track;
         private Bitmap? _cover;
 
-
         public TrackListItemViewModel(Track track)
         {
             _track = track;

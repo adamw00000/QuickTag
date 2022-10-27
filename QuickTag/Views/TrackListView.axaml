@@ -35,10 +35,13 @@
 					<DataGridTextColumn Header="Artist"
 										Binding="{Binding Artist}"
 										Width="*"></DataGridTextColumn>
-					<DataGridTemplateColumn>
+					<DataGridTemplateColumn Header=""
+											Width="50">
 						<DataGridTemplateColumn.CellTemplate>
 							<DataTemplate>
-								<Button Command="{Binding EditTrackCommand}">Edit</Button>
+								<Grid>
+									<Button Command="{Binding EditTrackCommand}">Edit</Button>
+								</Grid>
 							</DataTemplate>
 						</DataGridTemplateColumn.CellTemplate>
 					</DataGridTemplateColumn>
