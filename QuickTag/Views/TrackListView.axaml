@@ -35,6 +35,13 @@
 					<DataGridTextColumn Header="Artist"
 										Binding="{Binding Artist}"
 										Width="*"></DataGridTextColumn>
+					<DataGridTemplateColumn>
+						<DataGridTemplateColumn.CellTemplate>
+							<DataTemplate>
+								<Button Command="{Binding EditTrackCommand}">Edit</Button>
+							</DataTemplate>
+						</DataGridTemplateColumn.CellTemplate>
+					</DataGridTemplateColumn>
 				</DataGrid.Columns>
 			</DataGrid>
 			<Grid VerticalAlignment="Bottom" HorizontalAlignment="Right" IsVisible="{Binding IsLoading}">

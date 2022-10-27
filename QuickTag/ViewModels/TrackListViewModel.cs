@@ -10,7 +10,7 @@ namespace QuickTag.ViewModels
 {
     public class TrackListViewModel: ViewModelBase
     {
-        private const string ROOTDIR = "G:\\z telefonu";
+        private const string ROOTDIR = "G:\\_Sync\\Music";
         private readonly ITrackService _trackService;
 
         public int CoverMiniatureSize { get; } = 30;
