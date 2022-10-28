@@ -1,8 +1,8 @@
 ﻿namespace QuickTag.Models
 {
-    public class Track
+    public class MusicTrack
     {
-        public Track(string title, string artist, byte[]? cover)
+        public MusicTrack(string title, string artist, byte[]? cover)
         {
             Title = title;
             Artist = artist;

@@ -15,7 +15,7 @@ namespace QuickTag.Design.Services
             return DesignData.Tracks.Count + 3;
         }
 
-        public IEnumerable<Track> LoadTracks(string directory)
+        public IEnumerable<MusicTrack> LoadTracks(string directory)
         {
             return DesignData.Tracks;
         }

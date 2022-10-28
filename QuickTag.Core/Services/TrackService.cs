@@ -6,7 +6,7 @@ namespace QuickTag.Services
     {
         int CountTracks(string directory);
 
-        IEnumerable<Track> LoadTracks(string directory);
+        IEnumerable<MusicTrack> LoadTracks(string directory);
     }
 
     public class TrackService: ITrackService
@@ -14,7 +14,7 @@ namespace QuickTag.Services
         private readonly AudioFileService _audioFileService = new();
         private readonly List<string> _audioExtensions = new() { ".mp3", ".flac", ".m4a", ".opus", ".wav" };
 
-        public IEnumerable<Track> LoadTracks(string directory) => GetAudioFiles(directory).Select(path => _audioFileService.LoadAudioTags(path));
+        public IEnumerable<MusicTrack> LoadTracks(string directory) => GetAudioFiles(directory).Select(path => _audioFileService.LoadAudioTags(path));
 
         public int CountTracks(string directory) => GetAudioFiles(directory).Count();
 

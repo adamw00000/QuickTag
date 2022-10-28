@@ -15,7 +15,7 @@ namespace QuickTag.Views
             InitializeComponent();
             this.WhenActivated(d => d(ViewModel!.Tracks.ActOnEveryObject(tvm => tvm.ShowTrackWindow.RegisterHandler(DoShowTrackWindowAsync), tvm => { })));
         }
-        private async Task DoShowTrackWindowAsync(InteractionContext<TrackWindowViewModel, Track?> interaction)
+        private async Task DoShowTrackWindowAsync(InteractionContext<TrackWindowViewModel, MusicTrack?> interaction)
         {
             var dialog = new TrackWindow
             {
@@ -24,7 +24,7 @@ namespace QuickTag.Views
 
             var parentWindow = (Application.Current?.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow;
 
-            var result = await dialog.ShowDialog<Track?>(parentWindow);
+            var result = await dialog.ShowDialog<MusicTrack?>(parentWindow);
             interaction.SetOutput(result);
         }
     }

@@ -9,13 +9,13 @@ namespace QuickTag.ViewModels
 {
     public class TrackListItemViewModel: ViewModelBase
     {
-        private Track _track;
+        private MusicTrack _track;
         private Bitmap? _cover;
 
-        public TrackListItemViewModel(Track track)
+        public TrackListItemViewModel(MusicTrack track)
         {
             _track = track;
-            ShowTrackWindow = new Interaction<TrackWindowViewModel, Track?>();
+            ShowTrackWindow = new Interaction<TrackWindowViewModel, MusicTrack?>();
 
             EditTrackCommand = ReactiveCommand.CreateFromTask(async () =>
             {
@@ -33,7 +33,7 @@ namespace QuickTag.ViewModels
         public string Title { get => _track.Title; set => _track.Title = value; }
         public string Artist { get => _track.Artist; set => _track.Artist = value; }
         public ICommand EditTrackCommand { get; }
-        public Interaction<TrackWindowViewModel, Track?> ShowTrackWindow { get; }
+        public Interaction<TrackWindowViewModel, MusicTrack?> ShowTrackWindow { get; }
 
         public Bitmap? Cover
         {

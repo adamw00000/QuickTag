@@ -7,9 +7,9 @@ namespace QuickTag.ViewModels
 {
 	public class TrackWindowViewModel: ViewModelBase
 	{
-        private readonly Track _track;
+        private readonly MusicTrack _track;
 
-        public TrackWindowViewModel(Track track)
+        public TrackWindowViewModel(MusicTrack track)
         {
             _track = track;
         }
