@@ -9,7 +9,14 @@ namespace QuickTag
     {
         public IControl Build(object data)
         {
-            var name = data.GetType().FullName!.Replace("ViewModel", "View");
+            var name = data.GetType().FullName!;
+            if (name.Contains("ViewModelDesign"))
+            {
+                name = name.Replace("ViewModelDesign", "View");
+                name = name.Replace(".Design.", ".");
+            }
+            name = name.Replace("ViewModel", "View");
+
             var type = Type.GetType(name);
 
             if (type != null)

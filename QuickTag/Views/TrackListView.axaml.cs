@@ -15,7 +15,6 @@ namespace QuickTag.Views
             InitializeComponent();
             this.WhenActivated(d => d(ViewModel!.Tracks.ActOnEveryObject(tvm => tvm.ShowTrackWindow.RegisterHandler(DoShowTrackWindowAsync), tvm => { })));
         }
-
         private async Task DoShowTrackWindowAsync(InteractionContext<TrackWindowViewModel, Track?> interaction)
         {
             var dialog = new TrackWindow

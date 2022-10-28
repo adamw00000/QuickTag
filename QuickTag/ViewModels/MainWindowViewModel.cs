@@ -1,4 +1,6 @@
-﻿namespace QuickTag.ViewModels
+﻿using QuickTag.Design;
+
+namespace QuickTag.ViewModels
 {
     public class MainWindowViewModel: ViewModelBase
     {

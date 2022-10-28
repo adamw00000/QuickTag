@@ -1,6 +1,9 @@
-﻿using QuickTag.Services;
+﻿using QuickTag.Design;
+using QuickTag.Models;
+using QuickTag.Services;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using Splat;
 using System;
 using System.Collections.ObjectModel;
 using System.Reactive.Concurrency;
@@ -14,13 +17,13 @@ namespace QuickTag.ViewModels
         private readonly ITrackService _trackService;
 
         [Reactive]
-        public int TracksLoaded { get; private set; }
+        public int TracksLoaded { get; protected set; }
         [Reactive]
-        public int NumTracks { get; private set; }
+        public int NumTracks { get; protected set; }
         [ObservableAsProperty]
         public string TrackLoadingMessage { get; } = string.Empty;
         [Reactive]
-        public bool IsLoading { get; private set; } = false;
+        public bool IsLoading { get; protected set; } = false;
 
         public ObservableCollection<TrackListItemViewModel> Tracks { get; } = new();
 

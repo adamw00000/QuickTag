@@ -7,11 +7,9 @@
         x:Class="QuickTag.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="Quick Tag"
-		WindowStartupLocation="CenterScreen">
-
-	<Design.DataContext>
-		<vm:MainWindowViewModel/>
-	</Design.DataContext>
+		WindowStartupLocation="CenterScreen"
+		xmlns:local="using:QuickTag.Design"
+		d:DataContext="{x:Static local:DesignViewModelLocator.MainWindow}">
 
 	<ContentControl Content="{Binding TrackList}"></ContentControl>
 </Window>
