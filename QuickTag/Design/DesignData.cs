@@ -19,5 +19,6 @@ namespace QuickTag.Design
         };
 
         public static readonly MusicTrack Track = Tracks[0];
+        public static readonly UserSettings Settings = new();
     }
 }

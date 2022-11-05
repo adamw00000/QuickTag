@@ -10,11 +10,13 @@ namespace QuickTag.ViewModels
     public class TrackListItemViewModel: ViewModelBase
     {
         private MusicTrack _track;
+        private readonly IUserSettings _settings;
         private Bitmap? _cover;
 
-        public TrackListItemViewModel(MusicTrack track)
+        public TrackListItemViewModel(MusicTrack track, IUserSettings settings)
         {
             _track = track;
+            _settings = settings;
             ShowTrackWindow = new Interaction<TrackWindowViewModel, MusicTrack?>();
 
             EditTrackCommand = ReactiveCommand.CreateFromTask(async () =>
@@ -25,7 +27,7 @@ namespace QuickTag.ViewModels
                 if (result != null)
                 {
                     _track = result;
-                    await Observable.Start(() => LoadCover(Constants.CoverListMiniatureSize));
+                    await Observable.Start(() => LoadCover(_settings.TrackListCoverMiniatureSize));
                 }
             });
         }

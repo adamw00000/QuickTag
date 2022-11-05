@@ -1,5 +1,4 @@
-﻿using Avalonia.Controls;
-using QuickTag.Services;
+﻿using QuickTag.Services;
 using QuickTag.ViewModels;
 using Splat;
 
@@ -7,14 +6,19 @@ namespace QuickTag
 {
     public static class Bootstrapper
     {
-        private static readonly IMutableDependencyResolver _container = Locator.CurrentMutable;
-
         public static void Bootstrap()
         {
+            BootstrapSettings();
             BootstrapServices();
             BootstrapViewModels();
 
             SplatRegistrations.SetupIOC();
+        }
+
+        private static void BootstrapSettings()
+        {
+            var settings = UserSettings.Load();
+            SplatRegistrations.RegisterConstant<IUserSettings>(settings);
         }
 
         private static void BootstrapServices()

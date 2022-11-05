@@ -1,9 +1,6 @@
-﻿using QuickTag.Design;
-using QuickTag.Models;
-using QuickTag.Services;
+﻿using QuickTag.Services;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using Splat;
 using System;
 using System.Collections.ObjectModel;
 using System.Reactive.Concurrency;
@@ -13,8 +10,8 @@ namespace QuickTag.ViewModels
 {
     public class TrackListViewModel: ViewModelBase
     {
-        private const string ROOTDIR = "G:\\_Sync\\Music";
         private readonly ITrackService _trackService;
+        private readonly IUserSettings _settings;
 
         [Reactive]
         public int TracksLoaded { get; protected set; }
@@ -27,12 +24,23 @@ namespace QuickTag.ViewModels
 
         public ObservableCollection<TrackListItemViewModel> Tracks { get; } = new();
 
-        public TrackListViewModel(ITrackService trackService)
+        public TrackListViewModel(ITrackService trackService, IUserSettings settings)
         {
             _trackService = trackService;
+            _settings = settings;
+
+            _settings.PropertyChanged += CheckMusicLibraryPath;
 
             this.WhenAnyValue(x => x.TracksLoaded, x => x.NumTracks, (i, total) => i < total ? $"Loading tracks: {i}/{total}" : "Loading finished!")
                 .ToPropertyEx(this, x => x.TrackLoadingMessage);
+
+            RxApp.MainThreadScheduler.Schedule(LoadTracks);
+        }
+
+        private void CheckMusicLibraryPath(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName != nameof(_settings.MusicLibraryPath))
+                return;
 
             RxApp.MainThreadScheduler.Schedule(LoadTracks);
         }
@@ -41,20 +49,21 @@ namespace QuickTag.ViewModels
         {
             Tracks.Clear();
             TracksLoaded = 0;
-            NumTracks = await Observable.Start(() => _trackService.CountTracks(ROOTDIR), RxApp.TaskpoolScheduler);
+            NumTracks = await Observable.Start(() => _trackService.CountTracks(_settings.MusicLibraryPath), RxApp.TaskpoolScheduler);
 
             IsLoading = true;
 
-            foreach (var track in await Observable.Start(() => _trackService.LoadTracks(ROOTDIR), RxApp.TaskpoolScheduler))
+            foreach (var track in await Observable.Start(() => _trackService.LoadTracks(_settings.MusicLibraryPath), RxApp.TaskpoolScheduler))
             {
-                var trackVm = new TrackListItemViewModel(track);
+                var trackVm = new TrackListItemViewModel(track, _settings);
                 Tracks.Add(trackVm);
-                await Observable.Start(() => trackVm.LoadCover(Constants.CoverListMiniatureSize));
+                await Observable.Start(() => trackVm.LoadCover(_settings.TrackListCoverMiniatureSize));
 
                 TracksLoaded++;
             }
 
-            RxApp.MainThreadScheduler.Schedule(TimeSpan.FromSeconds(3), () => IsLoading = false);
+            // Hide loading message after delay
+            RxApp.MainThreadScheduler.Schedule(TimeSpan.FromSeconds(2), () => IsLoading = false);
         }
     }
 }
