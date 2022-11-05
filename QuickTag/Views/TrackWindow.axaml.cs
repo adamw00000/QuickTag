@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace QuickTag.Views
 {
-    public partial class MainWindow: Window
+    public partial class TrackWindow: Window
     {
-        public MainWindow()
+        public TrackWindow()
         {
             InitializeComponent();
         }

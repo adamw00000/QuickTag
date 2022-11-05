@@ -1,15 +1,14 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:QuickTag.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:vm="using:QuickTag.ViewModels"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="QuickTag.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="Quick Tag"
+        x:Class="QuickTag.Views.TrackWindow"
+        Title="TrackWindow"
 		WindowStartupLocation="CenterScreen"
 		xmlns:local="using:QuickTag.Design"
-		d:DataContext="{x:Static local:DesignViewModelLocator.MainWindow}">
+		d:DataContext="{x:Static local:DesignViewModelLocator.TrackWindow}">
 
-	<ContentControl Content="{Binding TrackList}"></ContentControl>
+	<Label Content="{Binding Title}"></Label>
 </Window>

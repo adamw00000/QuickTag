@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace QuickTag.ViewModels
+﻿namespace QuickTag.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel: ViewModelBase
     {
-        public string Greeting => "Welcome to Avalonia!";
+        public TrackListViewModel TrackList { get; }
+
+        public MainWindowViewModel(TrackListViewModel trackList)
+        {
+            TrackList = trackList;
+        }
     }
 }
